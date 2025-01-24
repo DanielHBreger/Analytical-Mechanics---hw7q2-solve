@@ -2,11 +2,22 @@
 class mass():
     
     def __init__(self, m, pos):
+        """Create new mass
+
+        Args:
+            m (float): object mass
+            pos (tuple): position of the mass in cartesian coordinates
+        """
         self.mass = m
         self.pos = pos
         self.origin = [0, 0, 0]
     
     def rebase(self, center_of_mass):
+        """Redefine the coordinates of the mass relative to given new origin
+
+        Args:
+            center_of_mass (list): new origin coordinates
+        """
         for i in range(len(self.origin)):
             self.pos[i] += self.origin[i]
         for i in range(len(center_of_mass)):
