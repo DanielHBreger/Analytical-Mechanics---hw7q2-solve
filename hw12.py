@@ -16,11 +16,9 @@ g = 1
 def propagate(theta_1, theta_2, p_1, p_2, dt):
     d_theta_1 = dt * ((p_1-p_2*np.cos(theta_1-theta_2))/(m*(l**2)*(1+(np.sin(theta_1-theta_2))**2)))
     d_theta_2 = dt * ((2*p_2-p_1*np.cos(theta_1-theta_2))/(m*(l**2)*(1+(np.sin(theta_1-theta_2))**2)))
-    ps_main_part = -1 * 1/((2*m*(l**2)*(1+(np.sin(theta_1-theta_2))**2))**2) * \
-                        (2*p_1*p_2*np.sin(theta_1-theta_2)*2*m*(l**2)*(1+(np.sin(theta_1-theta_2))**2) + \
-                        (p_1**2+2*p_2**2-2*p_1*p_2*np.cos(theta_1-theta_2))*4*m*(l**2)*np.sin(theta_1-theta_2)*np.cos(theta_1-theta_2))
-    d_p_1 = dt * (ps_main_part + 2*m*g*l*np.sin(theta_1))
-    d_p_2 = dt * (ps_main_part + m*g*l*np.sin(theta_2))
+    ps_main_part = ((p_1**2+2*(p_2**2)-2*p_1*p_2*np.cos(theta_1-theta_2))*np.sin(2*(theta_1-theta_2)))/(2*m*(l**2)*(1+np.sin(theta_1-theta_2)**2)**2)
+    d_p_1 = dt * (ps_main_part - 2*m*g*l*np.sin(theta_1))
+    d_p_2 = dt * (ps_main_part - m*g*l*np.sin(theta_2))    
     return theta_1 + d_theta_1, theta_2 + d_theta_2, p_1 + d_p_1, p_2 + d_p_2
 
 def main():
